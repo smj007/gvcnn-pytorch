@@ -143,7 +143,7 @@ def group_pool(final_view, scores):
 
 class SVCNN(Model):
 
-    def __init__(self, name, nclasses=21, pretraining=True, cnn_name='inception'):
+    def __init__(self, name, nclasses=40, pretraining=True, cnn_name='inception'):
         super(SVCNN, self).__init__(name)
 
         self.nclasses = nclasses
@@ -176,7 +176,7 @@ class SVCNN(Model):
 
 class GVCNN(Model):
 
-    def __init__(self, name, model, nclasses=21, num_views=12):
+    def __init__(self, name, model, nclasses=40, num_views=12):
         super(GVCNN, self).__init__(name)
 
         self.nclasses = nclasses
