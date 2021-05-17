@@ -49,7 +49,7 @@ def train_3d_single():
     log_dir = args.name + '_stage_1'
     create_folder(log_dir)
 
-    svcnn = SVCNN(args.name, nclasses=21, pretraining=True, cnn_name=args.cnn_name)
+    svcnn = SVCNN(args.name, nclasses=40, pretraining=True, cnn_name=args.cnn_name)
     optimizer = optim.Adam(svcnn.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 
     train_file = open(args.single_train_path)
@@ -65,7 +65,7 @@ def train_3d_single():
     print('num_val_files: ' + str(len(val_dataset.data_list)))
     trainer = ModelNetTrainer(svcnn, train_loader, val_loader, optimizer, nn.CrossEntropyLoss(), 'svcnn', log_dir,
                               num_views=1)
-    trainer.train(60)
+    trainer.train(10)
     return svcnn
 
 
@@ -73,7 +73,7 @@ def train_3d_multi(svcnn):
     print('Stage_2 begin:')
     log_dir = args.name + '_stage_2'
     create_folder(log_dir)
-    gvcnn = GVCNN(args.name, svcnn, nclasses=21, num_views=args.num_views)
+    gvcnn = GVCNN(args.name, svcnn, nclasses=40, num_views=args.num_views)
     del svcnn
 
     optimizer = optim.Adam(gvcnn.parameters(), lr=args.lr, weight_decay=args.weight_decay, betas=(0.9, 0.999))
@@ -93,7 +93,7 @@ def train_3d_multi(svcnn):
     print('num_val_files: ' + str(len(val_dataset.data_list)))
     trainer = ModelNetTrainer(gvcnn, train_loader, val_loader, optimizer, nn.CrossEntropyLoss(), 'gvcnn', log_dir,
                               num_views=args.num_views)
-    trainer.train(300)
+    trainer.train(15)
 
 
 if __name__ == '__main__':
