@@ -91,8 +91,8 @@ class ModelNetTrainer(object):
         all_correct_points = 0
         all_points = 0
 
-        wrong_class = np.zeros(21)
-        samples_class = np.zeros(21)
+        wrong_class = np.zeros(40)
+        samples_class = np.zeros(40)
         all_loss = 0
 
         self.model.eval()
@@ -131,7 +131,7 @@ class ModelNetTrainer(object):
         val_overall_acc = acc.cpu().data.numpy()
         loss = all_loss / len(self.val_loader)
 
-        val_class_acc = [(i, val_class_acc[i]) for i in range(21)]
+        val_class_acc = [(i, val_class_acc[i]) for i in range(40)]
         print('val class acc. :', val_class_acc)
         print('val mean class acc. : ', val_mean_class_acc)
         print('val overall acc. : ', val_overall_acc)
